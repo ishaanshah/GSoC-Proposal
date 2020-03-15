@@ -42,7 +42,7 @@ ListenBrainz is the first open source organization that I have contributed to. H
 I wrote a bot which solved the [Eight Puzzle](https://github.com/ishaanshah/Eight-Solver) as the final project for [CS50](cs50.harvard.edu). Recently I also worked on the platform used for [Botomania](https://github.com/arpan-dasgupta/botomania-felicity-2020), an onsite contest held at my college.
 
 ## Question: How much time do you have available, and how would you plan to use it?
-I plan to work for 45-50 hour per week as I have holidays during the coding period.
+I plan to work for 35-45 hours per week as I would have holidays during most of the coding period.
 
 ## Question: Do you plan to have a job or study during the summer in conjunction with Summer of Code?
-None
+I have no plans for having a job during the summer, but my college semester might extended by 2-3 weeks because of the nationwide shutdown due to Corona Virus.
