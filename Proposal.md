@@ -8,6 +8,15 @@
 - Website: https://ishaanshah.github.io
 - Time Zone: UTC+530
 
+# Project Overview
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that have been stored in the database. Right now the only information an user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
+
+The current generation of statistics takes place in the following manner
+## Todo: Place the data flow diagram over here
+
+To implement other kinds of graphs some changes have to be made to the database schema and the data flow
+## Todo: Figure out the backend an put it over here
+
 # About Me
 I am a first year student at International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learnt quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
 
@@ -15,7 +24,7 @@ I am a first year student at International Institute of Information Technology, 
 I have a HP laptop with an i5 Intel processor and 8 GB RAN running Arch Linux. I also have a desktop computer with an i7 Intel processor, GTX 960 Graphics card and 8 GB RAM running Arch Linux.
 
 ## Question: When did you first start programming?
-I have been programming since 10th graded. I started out with C/C++ but now mostly code in Python and JavaScript.
+I have been programming since 10th grade. I started out with C/C++ but now mostly code in Python and JavaScript.
 
 ## Question: What type of music do you listen to?
 I am a die hard fan of [Coldplay](https://www.coldplay.com). Other than that I like listening to songs by [Maroon 5](https://maroon5.com), [Lenka](https://lenkamusic.com) and [The Local Train](https://www.facebook.com/TheLocalTrain/).
