@@ -1,48 +1,54 @@
 import React from 'react';
 import './App.css';
-import ListenHistory from './listenHistory'
+import TopArtist from './topArtist'
 
 const data = [
   {
-    "id": "japan",
-    "color": "hsl(199, 70%, 50%)",
-    "data": [
-      {
-        "x": "Monday",
-        "y": 150
-      },
-      {
-        "x": "Tuesday",
-        "y": 79
-      },
-      {
-        "x": "Wednesday",
-        "y": 90 
-      },
-      {
-        "x": "Thursday",
-        "y": 120
-      },
-      {
-        "x": "Friday",
-        "y": 90
-      },
-      {
-        "x": "Saturday",
-        "y": 130
-      },
-      {
-        "x": "Sunday",
-        "y": 72
-      },
-    ]
+    "artist": "The Lumineers",
+    "Listen Count": 8,
   },
+  {
+    "artist": "American Authors",
+    "Listen Count": 8,
+  },
+  {
+    "artist": "Within Temptation",
+    "Listen Count": 9,
+  },
+  {
+    "artist": "The Weeknd",
+    "Listen Count": 17,
+  },
+  {
+    "artist": "Imagine Dragons",
+    "Listen Count": 38,
+  },
+  {
+    "artist": "Maroon 5",
+    "Listen Count": 45,
+  },
+  {
+    "artist": "Ellie Goulding",
+    "Listen Count": 56,
+  },
+  {
+    "artist": "The Local Train",
+    "Listen Count": 88,
+  },
+  {
+    "artist": "Lenka",
+    "Listen Count": 88,
+  },
+  {
+    "artist": "Coldplay",
+    "Listen Count": 91,
+  }
 ]
 
 function App() {
   return (
     <div id="graph">
-      <ListenHistory data={data} />
+      <TopArtist data={data} />
     </div>
   );
 }
