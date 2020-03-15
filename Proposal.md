@@ -17,6 +17,21 @@ The current generation of statistics takes place in the following manner
 To implement other kinds of graphs some changes have to be made to the database schema and the data flow
 ## Todo: Figure out the backend an put it over here
 
+# Graphs and Statistics which can be shown
+The graphs to be shown can be classified into two different catagories:
+
+## User Statistics
+These graphs tell the user about his/her listening history and habits.<br>
+The graphs that can be shown in this section are
+- **Listening Activity**: The number of listens submitted to listenbrainz in the last week/month/year.
+- **Top Artist**: The top artists that the user has listened to.
+- **Top Albums**: The top releases that the user has listened to.
+- **Top Songs**: The top songs that the user has listened to.
+- **Genre Graph**: The top 5 genres that the user has listened to by percentage.
+- **Daily Activity**: This graph shows when the user is most active during the day.
+
+## Sitewide Statistics
+
 # About Me
 I am a first year student at International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learnt quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
 
