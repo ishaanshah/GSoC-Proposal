@@ -22,12 +22,14 @@ The graphs to be shown can be classified into two different catagories:
 
 ## User Statistics
 These graphs tell the user about his/her listening history and habits.<br>
-The graphs that can be shown in this section are
+The graphs that can be shown in this section are -
 - **Listening Activity**: The number of listens submitted to listenbrainz in the last week/month/year.
 - **Top Artist**: The top artists that the user has listened to.
 - **Top Albums**: The top releases that the user has listened to.
 - **Top Songs**: The top songs that the user has listened to.
 - **Daily Activity**: This graph shows when the user is most active during the day.
+
+Apart from these many more numerical stats can be shown which can be seen in the [UI Mockups](link to UI Mocks section goes here).
 
 ## Sitewide Statistics
 These graphs tell about the sitewide trending artists, albums and songs. This data can also be used to calculate the popularity of the entities. Other than that graphs can be made to show the overall activity on the website, i.e the number of listens submitted by all users in the last month.
