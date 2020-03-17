@@ -29,10 +29,14 @@ The graphs that can be shown in this section are -
 - **Top Songs**: The top songs that the user has listened to.
 - **Daily Activity**: This graph shows when the user is most active during the day.
 
-Apart from these many more numerical stats can be shown which can be seen in the [UI Mockups](link to UI Mocks section goes here).
+Apart from these more numerical stats can be shown which can be seen in the [UI Mockups](link to UI Mocks section goes here).
 
 ## Sitewide Statistics
 These graphs tell about the sitewide trending artists, albums and songs. This data can also be used to calculate the popularity of the entities. Other than that graphs can be made to show the overall activity on the website, i.e the number of listens submitted by all users in the last month.
+
+# UI Mockups
+Right now the profile page has two tabs - Listens and Artists. This project will replace the Artists tab by Statistics tab which will display the user statistics. The statistics page will be divided into three sections,
+
 
 # About Me
 I am a first year student at International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learnt quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
