@@ -11,12 +11,6 @@
 # Project Overview
 ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that have been stored in the database. Right now the only information an user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
 
-The current generation of statistics takes place in the following manner
-## Todo: Place the data flow diagram over here
-
-To implement other kinds of graphs some changes have to be made to the database schema and the data flow
-## Todo: Figure out the backend an put it over here
-
 # Graphs and Statistics which can be shown
 The graphs to be shown can be classified into two different catagories:
 
@@ -27,16 +21,36 @@ The graphs that can be shown in this section are -
 - **Top Artist**: The top artists that the user has listened to.
 - **Top Albums**: The top releases that the user has listened to.
 - **Top Songs**: The top songs that the user has listened to.
-- **Daily Activity**: This graph shows when the user is most active during the day.
-
-Apart from these more numerical stats can be shown which can be seen in the [UI Mockups](link to UI Mocks section goes here).
+- **Daily Activity**: This graph shows the user activity during the day.
+- **Artist Origins**: A map showing the locations of artists to which the user listens to.
 
 ## Sitewide Statistics
-These graphs tell about the sitewide trending artists, albums and songs. This data can also be used to calculate the popularity of the entities. Other than that graphs can be made to show the overall activity on the website, i.e the number of listens submitted by all users in the last month.
+These graphs tell about the sitewide trending artists, albums and songs. This data can also be used to calculate the popularity of the entities. Other than that graphs can be made to show the overall activity on the website like cumulative listens submitted, listens submitted per day.
 
 # UI Mockups
-Right now the profile page has two tabs - Listens and Artists. This project will replace the Artists tab by Statistics tab which will display the user statistics. The statistics page will be divided into three sections,
+This project will add three new views to serve the statistics that are being generated.
 
+## User statistics
+[UI Prototype](https://www.figma.com/proto/qXJTaGsrjmzBFVztScyINF/Stats?node-id=2%3A3&scaling=min-zoom)<br>
+This view contains all the graphs and statistics that have been described in the User Statistics section.
+
+## User listen history
+[UI Prototype](https://www.figma.com/proto/3ugc7cWUAlKqBawNVOnoSU/History?scaling=min-zoom&node-id=1%3A2)<br>
+This view shows paginated list of the artists/recordings/releases that the user has listened to in a given range of dates.
+
+## Sitewide statistics
+[UI Prototype](https://www.figma.com/proto/paVt1kzikbX17DjYpsRNQ5/Statistics?scaling=min-zoom&node-id=2%3A0)<br>
+This view shows the top 10 artists/recordings/releases that all listenbrainz user are listneing to, this data can be used to calculate how mainstream is a particular users choice. Morever the Listen Count shown on the homepage will be replaced by a graph showing the cumulative listens submitted to listenbrainz over the last month.
+
+# Implementation
+
+# Timeline
+
+# After GSoC
+## Entity views
+TODO
+## AcousticBrainz integration
+TODO
 
 # About Me
 I am a first year student at International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learnt quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
@@ -66,4 +80,4 @@ I wrote a bot which solved the [Eight Puzzle](https://github.com/ishaanshah/Eigh
 I plan to work for 35-45 hours per week as I would have holidays during most of the coding period.
 
 ## Question: Do you plan to have a job or study during the summer in conjunction with Summer of Code?
-I have no plans for having a job during the summer, but my college semester might extended by 2-3 weeks because of the nationwide shutdown due to Corona Virus.
+I have no plans for having a job during the summer, but my college semester might extended by 1-2 weeks because of the nationwide shutdown due to Corona Virus.
