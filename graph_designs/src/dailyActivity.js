@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveLine } from '@nivo/line'
 
-export default class ListenHistory extends React.Component {
+export default class dailyActivity extends React.Component {
   render() {
     return (
       <ResponsiveLine

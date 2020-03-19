@@ -1,54 +1,112 @@
 import React from 'react';
 import './App.css';
-import TopArtist from './topArtist'
+import DailyActivity from './dailyActivity'
 
-const data = [
+const data = [{
+  "data": [
   {
-    "artist": "The Lumineers",
-    "Listen Count": 8,
+    "x": "0",
+    "y": 10,
   },
   {
-    "artist": "American Authors",
-    "Listen Count": 8,
+    "x": "1",
+    "y": 4,
   },
   {
-    "artist": "Within Temptation",
-    "Listen Count": 9,
+    "x": "2",
+    "y": 0,
   },
   {
-    "artist": "The Weeknd",
-    "Listen Count": 17,
+    "x": "3",
+    "y": 0,
   },
   {
-    "artist": "Imagine Dragons",
-    "Listen Count": 38,
+    "x": "4",
+    "y": 0,
   },
   {
-    "artist": "Maroon 5",
-    "Listen Count": 45,
+    "x": "5",
+    "y": 0,
   },
   {
-    "artist": "Ellie Goulding",
-    "Listen Count": 56,
+    "x": "6",
+    "y": 0,
   },
   {
-    "artist": "The Local Train",
-    "Listen Count": 88,
+    "x": "7",
+    "y": 5,
   },
   {
-    "artist": "Lenka",
-    "Listen Count": 88,
+    "x": "8",
+    "y": 4,
   },
   {
-    "artist": "Coldplay",
-    "Listen Count": 91,
-  }
-]
+    "x": "9",
+    "y": 8,
+  },
+  {
+    "x": "10",
+    "y": 4,
+  },
+  {
+    "x": "11",
+    "y": 12,
+  },
+  {
+    "x": "12",
+    "y": 9,
+  },
+  {
+    "x": "13",
+    "y": 15,
+  },
+  {
+    "x": "14",
+    "y": 20,
+  },
+  {
+    "x": "15",
+    "y": 5,
+  },
+  {
+    "x": "16",
+    "y": 13,
+  },
+  {
+    "x": "17",
+    "y": 11,
+  },
+  {
+    "x": "18",
+    "y": 10,
+  },
+  {
+    "x": "19",
+    "y": 23,
+  },
+  {
+    "x": "20",
+    "y": 20,
+  },
+  {
+    "x": "21",
+    "y": 19,
+  },
+  {
+    "x": "22",
+    "y": 20,
+  },
+  {
+    "x": "23",
+    "y": 15,
+  },
+
+]}]
 
 function App() {
   return (
     <div id="graph">
-      <TopArtist data={data} />
+      <DailyActivity data={data} />
     </div>
   );
 }
