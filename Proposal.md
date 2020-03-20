@@ -50,10 +50,20 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 Currently listens are imported into Spark on the 8th and 22nd of every month. However for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported everyday at midnight, which means incremental data dumps have to be made everyday.<br><br>
 The data required to display the `Listen Activity` graph `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data will be stored in Redis cache for faster retrieval in future.<br><br>
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week it has to be stored in table.<br><br>
-The `Artist Origin` is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated biweekly/monthly depending upon the efficiency of this proccess. A local cache can be created which maps various artists to their origin and be stored in the HDFS. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above proccess is shown in the figure -
+The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated biweekly/monthly depending upon the efficiency of this proccess. A local cache can be created which maps various artists to their origin and be stored in the HDFS. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above proccess is shown in the figure -
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
 
-### Listen History
+### Redis cache
+To improve the page loading time, we have to cache the results that we get from Spark in memory. An example request for getting data for `Listen Activity` will be,
+```javascript
+"stats.user.listen_activity": {
+  "name": "stats.user.listen_activity",
+  "description": "Listening activity of user",
+  "params": ["musicbrainz_id", "from", "to"]
+}
+```
+We can use `Redis Hash` to store the result for a query and quickly retrieve it later if needed. Also an entry stored in the cache will have a limited lifetime after which it will be removed. The flow for the proccess is shown in the figure.
+![Query Caching](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Request%20Stats.png?token=AGAIMSEJIVCJNS25D2VPQRC6PXHVU "Query Caching")
 
 # Timeline
 
@@ -91,5 +101,5 @@ I wrote a bot that solved the [Eight Puzzle](https://github.com/ishaanshah/Eight
 I plan to work for 35-45 hours per week as I would have holidays during most of the coding period.
 
 ## Question: Do you plan to have a job or study during the summer in conjunction with Summer of Code?
-I have no plans for having a job during the summer, but my college semester might be extended by 1-2 weeks because of the nationwide shutdown due to Corona Virus.
+I have no plans for having a job during the summer.
 
