@@ -42,8 +42,8 @@ This view shows a paginated list of the artists/recordings/releases that the use
 This view shows the top 10 artists/recordings/releases that all ListenBrainz users are listening to. Moreover, the Listen Count shown on the homepage will be replaced by a graph showing the cumulative listens submitted to ListenBrainz over the last month.
 
 # Implementation
-
 ## Front End
+ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`, a React based charting library built using `d3.js` for rendering various visualisations. Some of the code used to build graphs for the mock UI can be found [here](https://github.com/ishaanshah/GSoC-Proposal/tree/master/graph_designs/src).
 
 ## Back End
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
@@ -53,7 +53,7 @@ The `Artist Origin` map is a bit difficult to implement as we have to query the 
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
 
 ### Redis cache
-To improve the page loading time, we have to cache the results that we get from Spark in memory. An example request for getting data for `Listen Activity` will be,
+To improve the page loading time, we have to cache the results that we get from Spark in memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
 ```javascript
 "stats.user.listen_activity": {
   "name": "stats.user.listen_activity",
@@ -61,22 +61,46 @@ To improve the page loading time, we have to cache the results that we get from 
   "params": ["musicbrainz_id", "from", "to"]
 }
 ```
-We can use `Redis Hash` to store the result for a query and quickly retrieve it later if needed. Also, an entry stored in the cache will have a limited lifetime, after which it will be removed. The flow for the process is shown in the figure.
+We can **hash** the request json and use it as key to store the result for the query and quickly retrieve it later if the same query is made. Also, an entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after suitable interval. The flow for the process is shown in the figure.
 ![Query Caching](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Request%20Stats.png?token=AGAIMSEJIVCJNS25D2VPQRC6PXHVU "Query Caching")
 
 # Timeline
+Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
+## Community Bonding Period
+I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server and the Spark server to start generating statistics.
+## Week 1-2
+Finalize and implement the UI for displaying user and sitewide staistics(except `Artist Origins`) and write tests.
+## Week 3
+Start working on generation of user statistics.
+## Week 4 (Phase 1 evaluations here)
+Complete user statistics.
+## Week 5
+Write tests for user statistics generation. Refactor the code written before based upon feedback from mentors in evaluation.
+## Week 6
+Implement `Redis Cache` and write tests
+## Week 7
+Implement sitewide statistics.
+## Week 8 (Phase 2 evaluations here)
+Start writing scripts to get information about artist's origin from MusicBrainz and geocoding it.
+## Week 9
+Work on UI for `Artist Origin`. Refactor the code written before based upon feedback from mentors in evaluation.
+## Week 10-11
+Write backend code for `Artist Origin`.
+## Week 12-13
+Buffer Period. Work on optional ideas.
 
-# After GSoC
-## Entity views
-TODO
+# After GSoC / Optional Ideas
+I will like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. Addition of more statistics will be relatively easy.
 ## AcousticBrainz integration
-TODO
+AcousticBrainz provides lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users listening habits and can be used by recommendation engine.
+## Entity Graphs
+These graphs will show details about varios entities like artists, recordings and releases.
 
 # About Me
 I am a first year student at the International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
 
 ## Question: Tell us about the computer(s) you have available for working on your SoC project!
-I have a HP laptop with an i5 Intel processor, and 8 GB RAN running Arch Linux. I also have a desktop computer with an i7 Intel processor, GTX 960 Graphics card, and 8 GB RAM running Arch Linux.
+I have a HP laptop with an i5 Intel processor, and 8 GB RAM running Arch Linux. I also have a desktop computer with an i7 Intel processor, GTX 960 Graphics card, and 8 GB RAM running Arch Linux.
 
 ## Question: When did you first start programming?
 I have been programming since 10th grade. I started with C/C++ but now mostly code in Python and JavaScript.
@@ -85,7 +109,7 @@ I have been programming since 10th grade. I started with C/C++ but now mostly co
 I am a die-hard fan of [Coldplay](https://www.coldplay.com). Other than that, I like listening to songs by [Maroon 5](https://maroon5.com), [Lenka](https://lenkamusic.com), and [The Local Train](https://www.facebook.com/TheLocalTrain/).
 
 ## Question: What aspects of ListenBrainz interest you the most?
-TODO
+I am a big fan of Open Source software. ListenBrainz is an Open Source alternative to [last.fm](https://www.last.fm)
 
 ## Question: Have you ever used MusicBrainz to tag your files?
 I have used MusicBrainz Picard to tag my music collection.
