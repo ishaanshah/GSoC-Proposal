@@ -6,10 +6,10 @@
 - Email: ishaan.n.shah@gmail.com
 - Github: https://github.com/ishaanshah
 - Website: https://ishaanshah.github.io
-- Time Zone: UTC+530
+- Time Zone: UTC + 5:30
 
 # Project Overview
-ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying interesting graphs and statistics that would more helpful to the user.
 
 # Graphs and Statistics which can be shown
 We can classify the graphs to be shown in two different categories:
