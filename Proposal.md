@@ -9,15 +9,15 @@
 - Time Zone: UTC+530
 
 # Project Overview
-ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that have been stored in the database. Right now the only information an user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that have been stored in the database. Right now the only information a user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
 
 # Graphs and Statistics which can be shown
-The graphs to be shown can be classified into two different catagories:
+The graphs to be shown can be classified into two different categories:
 
 ## User Statistics
 These graphs tell the user about his/her listening history and habits.<br>
 The graphs that can be shown in this section are -
-- **Listening Activity**: The number of listens submitted to listenbrainz in the last week/month/year.
+- **Listening Activity**: The number of listens submitted to ListenBrainz in the last week/month/year.
 - **Top Artist**: The top artists that the user has listened to.
 - **Top Albums**: The top releases that the user has listened to.
 - **Top Songs**: The top songs that the user has listened to.
@@ -32,17 +32,26 @@ This project will add three new views to serve the statistics that are being gen
 
 ## User statistics
 [UI Prototype](https://www.figma.com/proto/qXJTaGsrjmzBFVztScyINF/Stats?node-id=2%3A3&scaling=min-zoom)<br>
-This view contains all the graphs and statistics that have been described in the User Statistics section.
+This view contains all the graphs and statistics that have been described in the User Statistics section. The artist origin map is an interactive map similar to that shown over [here](https://geoffboeing.com/share/projects/leaflet-lastfm-artists/lastfm-artists-map.html).
 
 ## User listen history
 [UI Prototype](https://www.figma.com/proto/3ugc7cWUAlKqBawNVOnoSU/History?scaling=min-zoom&node-id=1%3A2)<br>
-This view shows paginated list of the artists/recordings/releases that the user has listened to in a given range of dates.
+This view shows a paginated list of the artists/recordings/releases that the user has listened to in a given range of dates.
 
 ## Sitewide statistics
 [UI Prototype](https://www.figma.com/proto/paVt1kzikbX17DjYpsRNQ5/Statistics?scaling=min-zoom&node-id=2%3A0)<br>
-This view shows the top 10 artists/recordings/releases that all listenbrainz user are listneing to, this data can be used to calculate how mainstream is a particular users choice. Morever the Listen Count shown on the homepage will be replaced by a graph showing the cumulative listens submitted to listenbrainz over the last month.
+This view shows the top 10 artists/recordings/releases that all ListenBrainz users are listening to. Moreover the Listen Count shown on the homepage will be replaced by a graph showing the cumulative listens submitted to ListenBrainz over the last month.
 
 # Implementation
+
+## Front End
+
+## Back End
+Currently listens are imported into Spark on the 8th and 22nd of every month. However for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported everyday at midnight, which means incremental data dumps have to be made everyday.<br><br>
+The data required to display the `Listen Activity` graph `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data will be stored in Redis cache for faster retrieval in future.<br><br>
+The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week it has to be stored in table.<br><br>
+
+### Listen History
 
 # Timeline
 
@@ -53,16 +62,16 @@ TODO
 TODO
 
 # About Me
-I am a first year student at International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learnt quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
+I am a first year student at the International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
 
 ## Question: Tell us about the computer(s) you have available for working on your SoC project!
 I have a HP laptop with an i5 Intel processor and 8 GB RAN running Arch Linux. I also have a desktop computer with an i7 Intel processor, GTX 960 Graphics card and 8 GB RAM running Arch Linux.
 
 ## Question: When did you first start programming?
-I have been programming since 10th grade. I started out with C/C++ but now mostly code in Python and JavaScript.
+I have been programming since 10th grade. I started with C/C++ but now mostly code in Python and JavaScript.
 
 ## Question: What type of music do you listen to?
-I am a die hard fan of [Coldplay](https://www.coldplay.com). Other than that I like listening to songs by [Maroon 5](https://maroon5.com), [Lenka](https://lenkamusic.com) and [The Local Train](https://www.facebook.com/TheLocalTrain/).
+I am a die-hard fan of [Coldplay](https://www.coldplay.com). Other than that I like listening to songs by [Maroon 5](https://maroon5.com), [Lenka](https://lenkamusic.com) and [The Local Train](https://www.facebook.com/TheLocalTrain/).
 
 ## Question: What aspects of ListenBrainz interest you the most?
 TODO
@@ -74,10 +83,11 @@ I have used MusicBrainz Picard to tag my music collection.
 ListenBrainz is the first open source organization that I have contributed to. However I have done some other projects that can be seen on my [Github](https://github.com/ishaanshah) Page.
 
 ## Question: What sorts of programming projects have you done on your own time?
-I wrote a bot which solved the [Eight Puzzle](https://github.com/ishaanshah/Eight-Solver) as the final project for [CS50](cs50.harvard.edu). Recently I also worked on the platform used for [Botomania](https://github.com/arpan-dasgupta/botomania-felicity-2020), an onsite contest held at my college.
+I wrote a bot that solved the [Eight Puzzle](https://github.com/ishaanshah/Eight-Solver) as the final project for [CS50](cs50.harvard.edu). Recently I also worked on the platform used for [Botomania](https://github.com/arpan-dasgupta/botomania-felicity-2020), an onsite contest held at my college.
 
 ## Question: How much time do you have available, and how would you plan to use it?
 I plan to work for 35-45 hours per week as I would have holidays during most of the coding period.
 
 ## Question: Do you plan to have a job or study during the summer in conjunction with Summer of Code?
-I have no plans for having a job during the summer, but my college semester might extended by 1-2 weeks because of the nationwide shutdown due to Corona Virus.
+I have no plans for having a job during the summer, but my college semester might be extended by 1-2 weeks because of the nationwide shutdown due to Corona Virus.
+
