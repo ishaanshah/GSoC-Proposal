@@ -9,7 +9,7 @@
 - Time Zone: UTC+530
 
 # Project Overview
-ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that have been stored in the database. Right now, the only information a user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about his/her listening trends is a list of recent listens and top artists. This project aims to change this by serving interesting graphs and statistics that would more helpful to the user.
 
 # Graphs and Statistics which can be shown
 We can classify the graphs to be shown in two different categories:
@@ -24,7 +24,7 @@ These graphs tell the user about his/her listening history and habits.<br>
 - **Artist Origins**: A map showing the locations of artists to which the user listens to.
 
 ## Sitewide Statistics
-These graphs tell about the sitewide trending artists, albums, and songs. This data can also be used to calculate the popularity of the entities. Other than that, graphs can be made to show the overall activity on the website like cumulative listens submitted, listens submitted per day.
+These graphs tell about the sitewide trending artists, releases, and recordings. This data can also be used to calculate the popularity of the entities.
 
 # UI Mockups
 This project will add three new views to serve the statistics that are being generated.
@@ -47,9 +47,9 @@ ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`
 
 ## Back End
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
-The data required to display the `Listen Activity` graph `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data would be stored in Redis cache for faster retrieval in future.<br><br>
+The data required to display the `Listen Activity` graph and `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data would be stored in Redis cache for faster retrieval in future.<br><br>
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
-The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated twice/once in a month, depending upon the efficiency of this process. A local cache can be created which maps various artists to their origin and be stored in the HDFS. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
+The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated twice/once in a month, depending upon the efficiency of this process. A local cache can be created which maps various artists to their origin. This cache will be stored in the HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
 
 ### Redis cache
@@ -61,7 +61,7 @@ To improve the page loading time, we have to cache the results that we get from 
   "params": ["musicbrainz_id", "from", "to"]
 }
 ```
-We can **hash** the request JSON and use it as key to store the result for the query and quickly retrieve it later if the same query is made. Also, an entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after a suitable interval. The flow for the process is shown in the figure.
+We can **hash** the request JSON and use it as key to store the result for the query and quickly retrieve it later if the same query is made. An entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after a suitable interval. The flow for the process is shown in the figure.
 ![Query Caching](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Request%20Stats.png?token=AGAIMSEJIVCJNS25D2VPQRC6PXHVU "Query Caching")
 
 # Timeline
@@ -106,10 +106,10 @@ I have a HP laptop with an i5 Intel processor, and 8 GB RAM running Arch Linux. 
 I have been programming since 10th grade. I started with C/C++ but now mostly code in Python and JavaScript.
 
 ## Question: What type of music do you listen to?
-I am a die-hard fan of [Coldplay](https://www.coldplay.com). Other than that, I like listening to songs by [Maroon 5](https://maroon5.com), [Lenka](https://lenkamusic.com), and [The Local Train](https://www.facebook.com/TheLocalTrain/).
+I am a die-hard fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). Other than that, I like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
 
 ## Question: What aspects of ListenBrainz interest you the most?
-I am a big fan of Open Source software. ListenBrainz is an Open Source alternative to [last.fm](https://www.last.fm)
+TODO
 
 ## Question: Have you ever used MusicBrainz to tag your files?
 I have used MusicBrainz Picard to tag my music collection.
