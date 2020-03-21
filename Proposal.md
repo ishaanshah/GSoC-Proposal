@@ -106,10 +106,10 @@ I have a HP laptop with an Intel i5 processor, and 8 GB RAM running Arch Linux. 
 I have been programming since 10th grade. I started with C/C++ but now mostly code in Python and JavaScript.
 
 ## Question: What type of music do you listen to?
-I am a  fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). In addition to  that, I also like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
+I am a big fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). In addition to  that, I also like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
 
 ## Question: What aspects of ListenBrainz interest you the most?
-The data collected by ListenBrainz is openly available and can be used to improve music technologies. Also the Open Source nature of ListenBrainz allow me to add features which are currently unavailable in closed source competitors like last.fm.
+The data collected by ListenBrainz is openly available and can be used to improve music technologies. Also the Open Source nature of ListenBrainz allow me to add features which are currently unavailable in closed source competitors.
 
 ## Question: Have you ever used MusicBrainz to tag your files?
 I have used MusicBrainz Picard to tag my music collection.
