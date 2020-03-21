@@ -1,4 +1,4 @@
-# GSoC 2020: Adding statistics and graphs for Listenbrainz users and community
+# GSoC 2020: Adding Statistics and Graphs for Listenbrainz Users and Community
 
 # Personal Information
 - Name: Ishaan Shah
@@ -6,25 +6,25 @@
 - Email: ishaan.n.shah@gmail.com
 - Github: https://github.com/ishaanshah
 - Website: https://ishaanshah.github.io
-- Time Zone: UTC + 5:30
+- Time Zone: UTC +5:30
 
 # Project Overview
-ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying interesting graphs and statistics that would more helpful to the user.
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying insightful graphs and statistics that would more helpful to the user.
 
 # Graphs and Statistics which can be shown
 We can classify the graphs to be shown in two different categories:
 
 ## User Statistics
 These graphs tell the user about his/her listening history and habits.<br>
-- **Listening Activity**: The number of listens submitted to ListenBrainz in the last week/month/year.
-- **Top Artist**: The top artists that the user has listened to.
-- **Top Albums**: The top releases that the user has listened to.
-- **Top Songs**: The top songs that the user has listened to.
-- **Daily Activity**: This graph shows the user activity during the day.
-- **Artist Origins**: A map showing the locations of artists to which the user listens to.
+- **Listening Activity**: The number of listens submitted to ListenBrainz in the last week/month/year
+- **Top Artist**: The top artists that the user has listened to
+- **Top Releases**: The top releases that the user has listened to
+- **Top Recordings**: The top recordings that the user has listened to
+- **Daily Activity**: This graph shows the user activity during the day
+- **Artist Origins**: A map showing the locations of artists to which the user listens to
 
 ## Sitewide Statistics
-These graphs tell about the sitewide trending artists, releases, and recordings. This data can also be used to calculate the popularity of the entities.
+These graphs tell about the sitewide trending artists, releases, and recordings in the ListenBrainz community. This data can also be used to calculate the popularity of the entities.
 
 # UI Mockups
 This project will add three new views to serve the statistics that are being generated.
@@ -35,7 +35,7 @@ This view contains all the graphs and statistics that have been described in the
 
 ## User listen history
 [UI Prototype](https://www.figma.com/proto/3ugc7cWUAlKqBawNVOnoSU/History?scaling=min-zoom&node-id=1%3A2)<br>
-This view shows a paginated list of the artists/recordings/releases that the user has listened to in a given range of dates.
+This view shows a paginated list of the artists/recordings/releases that the user has listened to in a given time period.
 
 ## Sitewide statistics
 [UI Prototype](https://www.figma.com/proto/paVt1kzikbX17DjYpsRNQ5/Statistics?scaling=min-zoom&node-id=2%3A0)<br>
@@ -43,17 +43,17 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 
 # Implementation
 ## Front End
-ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`, a React based charting library built using `d3.js` for rendering various visualizations. Some of the code used to build graphs for the mock UI can be found [here](https://github.com/ishaanshah/GSoC-Proposal/tree/master/graph_designs/src).
+ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. Some of the code used to build graphs for the mock UI can be found [here](https://github.com/ishaanshah/GSoC-Proposal/tree/master/graph_designs/src).
 
 ## Back End
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
 The data required to display the `Listen Activity` graph and `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data would be stored in Redis cache for faster retrieval in future.<br><br>
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
-The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated twice/once in a month, depending upon the efficiency of this process. A local cache can be created which maps various artists to their origin. This cache will be stored in the HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
+The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated once/twice in a month, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
 
 ### Redis cache
-To improve the page loading time, we have to cache the results that we get from Spark in memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
+To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
 ```javascript
 "stats.user.listen_activity": {
   "name": "stats.user.listen_activity",
@@ -61,7 +61,7 @@ To improve the page loading time, we have to cache the results that we get from 
   "params": ["musicbrainz_id", "from", "to"]
 }
 ```
-We can **hash** the request JSON and use it as key to store the result for the query and quickly retrieve it later if the same query is made. An entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after a suitable interval. The flow for the process is shown in the figure.
+We can **hash** the request JSON and use it as a key to store the result for the query and quickly retrieve it later if the same query is made. An entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after a suitable interval. The flow for the process is shown in the figure.
 ![Query Caching](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Request%20Stats.png?token=AGAIMSEJIVCJNS25D2VPQRC6PXHVU "Query Caching")
 
 # Timeline
@@ -69,7 +69,7 @@ Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period
 ## Community Bonding Period
 I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server and the Spark server to start generating statistics.
 ## Week 1-2
-Finalize and implement the UI for displaying user and sitewide statistics(except `Artist Origins`) and write tests.
+Finalize and implement the UI for displaying user and sitewide statistics (except `Artist Origins`) and write tests.
 ## Week 3
 Start working on the generation of user statistics.
 ## Week 4 (Phase 1 evaluations here)
@@ -87,26 +87,26 @@ Work on UI for `Artist Origin`. Refactor the code written before based upon feed
 ## Week 10-11
 Write backend code for `Artist Origin`.
 ## Week 12-13
-Buffer Period. Work on optional ideas.
+Buffer Period. Work on additional ideas.
 
-# After GSoC / Optional Ideas
-I will like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
+# Post GSoC / Additional Ideas
+I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
 ## AcousticBrainz integration
-AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users listening habits and can be used by the recommendation engine.
+AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users' listening habits and can be used by the recommendation engine.
 ## Entity Graphs
 These graphs will show details about various entities like artists, recordings and releases.
 
 # About Me
-I am a first year student at the International Institute of Information Technology, Hyderabad. I started working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of Pull Requests that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
+I am a freshman at IIIT-H (International Institute of Information Technology, Hyderabad). I have been working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of PRs that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
 
 ## Question: Tell us about the computer(s) you have available for working on your SoC project!
-I have a HP laptop with an i5 Intel processor, and 8 GB RAM running Arch Linux. I also have a desktop computer with an i7 Intel processor, GTX 960 Graphics card, and 8 GB RAM running Arch Linux.
+I have a HP laptop with an Intel i5 processor, and 8 GB RAM running Arch Linux. I also have a desktop computer with an Intel i7 processor, GTX 960 Graphics card, and 8 GB RAM running Arch Linux.
 
 ## Question: When did you first start programming?
 I have been programming since 10th grade. I started with C/C++ but now mostly code in Python and JavaScript.
 
 ## Question: What type of music do you listen to?
-I am a die-hard fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). Other than that, I like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
+I am a  fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). In addition to  that, I also like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
 
 ## Question: What aspects of ListenBrainz interest you the most?
 TODO
@@ -118,10 +118,10 @@ I have used MusicBrainz Picard to tag my music collection.
 ListenBrainz is the first open source organization that I have contributed to. However, I have done some other projects that can be seen on my [Github](https://github.com/ishaanshah) Page.
 
 ## Question: What sorts of programming projects have you done on your own time?
-I wrote a bot that solved the [Eight Puzzle](https://github.com/ishaanshah/Eight-Solver) as the final project for [CS50](cs50.harvard.edu). Recently I also worked on the platform used for [Botomania](https://github.com/arpan-dasgupta/botomania-felicity-2020), an onsite contest held at my college.
+I wrote a bot that solved the [Eight Puzzle](https://github.com/ishaanshah/Eight-Solver) as the final project for [CS50](cs50.harvard.edu). Recently I also worked on the platform used for [Botomania](https://github.com/arpan-dasgupta/botomania-felicity-2020), an onsite contest held at IIITH.
 
 ## Question: How much time do you have available, and how would you plan to use it?
-I plan to work for 35-45 hours per week as I would have holidays during most of the coding period.
+I plan to work for 35-45 hours per week as I would be on vacation during most of the coding period.
 
 ## Question: Do you plan to have a job or study during the summer in conjunction with Summer of Code?
-I have no plans for having a job during the summer.
+No
