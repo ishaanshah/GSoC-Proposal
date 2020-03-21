@@ -1,4 +1,4 @@
-# GSoC 2020: Adding Statistics and Graphs for Listenbrainz Users and Community
+# GSoC 2020: Adding Statistics and Graphs for ListenBrainz Users and Community
 
 # Personal Information
 - Name: Ishaan Shah
@@ -9,7 +9,7 @@
 - Time Zone: UTC +5:30
 
 # Project Overview
-ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying insightful graphs and statistics that would more helpful to the user.
+ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying insightful graphs and statistics that would be more helpful to the user.
 
 # Graphs and Statistics which can be shown
 We can classify the graphs to be shown in two different categories:
@@ -109,7 +109,7 @@ I have been programming since 10th grade. I started with C/C++ but now mostly co
 I am a  fan of [Coldplay](https://musicbrainz.org/artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234). In addition to  that, I also like listening to songs by [Maroon 5](https://musicbrainz.org/artist/0ab49580-c84f-44d4-875f-d83760ea2cfe), [Lenka](https://musicbrainz.org/artist/ae9ed5e2-4caf-4b3d-9cb3-2ad626b91714), and [The Local Train](https://musicbrainz.org/artist/93e6118e-7fa8-49f6-9e02-699a1ebce105).
 
 ## Question: What aspects of ListenBrainz interest you the most?
-TODO
+The data collected by ListenBrainz is openly available and can be used to improve music technologies. Also the Open Source nature of ListenBrainz allow me to add features which are currently unavailable in closed source competitors like last.fm.
 
 ## Question: Have you ever used MusicBrainz to tag your files?
 I have used MusicBrainz Picard to tag my music collection.
