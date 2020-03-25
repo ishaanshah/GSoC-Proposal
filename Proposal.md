@@ -21,6 +21,7 @@ These graphs tell the user about his/her listening history and habits.<br>
 - **Top Releases**: The top releases that the user has listened to
 - **Top Recordings**: The top recordings that the user has listened to
 - **Daily Activity**: This graph shows the user activity during the day
+- **Top Genres**: This graph shows the top 5 genres that user listens to
 - **Artist Origins**: A map showing the locations of artists to which the user listens to
 
 ## Sitewide Statistics
@@ -49,10 +50,24 @@ ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
 
 ### Listen Activity
+The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
+Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe`.<br>
+Psuedocode:
+```python
+def get_listen_activity(days):
+  message = {}
+  for day in days:
+    df = listenbrainz_spark.utils.get_listens(from_date=day.begin, to_date=day.end)
+    cnt = df.count()
+    message[day] = cnt
+  return message
+```
 
 ### Top Artist/Recording/Release
 
 ### Daily Activity
+
+### Top Genres
 
 ### Artist Origin
 
