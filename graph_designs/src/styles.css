@@ -1,0 +1,11 @@
+.graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
