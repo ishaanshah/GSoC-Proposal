@@ -47,6 +47,17 @@ ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`
 
 ## Back End
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
+
+### Listen Activity
+
+### Top Artist/Recording/Release
+
+### Daily Activity
+
+### Artist Origin
+
+### Mood Analysis
+
 The data required to display the `Listen Activity` graph and `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data would be stored in Redis cache for faster retrieval in future.<br><br>
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
 The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated once/twice in a month, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
