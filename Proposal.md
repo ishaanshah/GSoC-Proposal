@@ -51,13 +51,13 @@ Currently, listens are imported into Spark on the 8th and 22nd of every month. H
 
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
-Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe` for a given user.<br>
+Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe` for a given user. The calculation of the data will be done only when the user visits the stats page<br>
 Psuedocode:
 ```python
 def get_listen_activity(days):
   message = {}
   for day in days:
-    df = listenbrainz_spark.utils.get_listens(from_date=day.begin, to_date=day.end)
+    df = get_listens(from_date=day.begin, to_date=day.end)
     df.createOrReplaceTempView("listens")
     result = run_query("SELECT * FROM listens WHERE use_name={user_name}")
     cnt = result.collect().count()
@@ -67,7 +67,7 @@ def get_listen_activity(days):
 
 ### Top Artist/Recording/Release
 The top artist/recording/release section shows the top 10 artist/recording/release that a user has listened to in the given period of time. It shows the user's favourite artists/recordings/releases.<br>
-Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified range of dates, then convert the `Dataframe` to a table and run the following `SQL` query on it.<br>
+Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it. The calculation of the data will be done only when the user visits the stats page<br>
 SQL Query:
 ```sql
 SELECT  artist_name
@@ -80,7 +80,9 @@ GROUP   BY  artist_name
           , artist_msid
           , artist_mbid
 ORDER   BY  cnt
+LIMIT   10
 ```
+Similar queries can be made to get Top Recordings/Releases.
 
 ### Daily Activity
 
@@ -90,7 +92,8 @@ ORDER   BY  cnt
 
 ### Mood Analysis
 
-The data required to display the `Listen Activity` graph and `Top Artist/Recording/Release` is easy to calculate. This data will be calculated only when the user visits the statistics page. Once calculated the data would be stored in Redis cache for faster retrieval in future.<br><br>
+### Sitewide Statistics
+
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
 The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated once/twice in a month, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
