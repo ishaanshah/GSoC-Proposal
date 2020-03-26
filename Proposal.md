@@ -51,19 +51,36 @@ Currently, listens are imported into Spark on the 8th and 22nd of every month. H
 
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
-Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe`.<br>
+Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe` for a given user.<br>
 Psuedocode:
 ```python
 def get_listen_activity(days):
   message = {}
   for day in days:
     df = listenbrainz_spark.utils.get_listens(from_date=day.begin, to_date=day.end)
-    cnt = df.count()
+    df.createOrReplaceTempView("listens")
+    result = run_query("SELECT * FROM listens WHERE use_name={user_name}")
+    cnt = result.collect().count()
     message[day] = cnt
   return message
 ```
 
 ### Top Artist/Recording/Release
+The top artist/recording/release section shows the top 10 artist/recording/release that a user has listened to in the given period of time. It shows the user's favourite artists/recordings/releases.<br>
+Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified range of dates, then convert the `Dataframe` to a table and run the following `SQL` query on it.<br>
+SQL Query:
+```sql
+SELECT  artist_name
+      , artist_msid
+      , artist_mbid
+      , count(artist_name) as cnt
+FROM    {table_name}
+WHERE   user_name={user_name}
+GROUP   BY  artist_name
+          , artist_msid
+          , artist_mbid
+ORDER   BY  cnt
+```
 
 ### Daily Activity
 
