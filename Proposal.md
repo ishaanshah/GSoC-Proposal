@@ -132,11 +132,21 @@ A pie chart can be used to show this data. The data required to display this cha
 
 ### Mood Analysis
 AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users' listening habits.<br>
-As the raw data provided by AB is hard relate to, this data will be shown relative to other users. For example, **Dancebility** of a users songs is 20% more than average. Also as AB only supports `mbid` lookups as of now, this project will calculate these statistics only for listens having a valid `recording_mbid`. Supporting all songs will be a stretch goal. These statistics will be calculated once in a week. Different statistics which can be shown are -
+As the raw data provided by AB is hard relate to, this data will be shown relative to other users. For example, **Dancebility** of an user's songs is 20% more than average. As AB only supports `mbid` lookups as of now, this project will calculate these statistics only for listens having a valid `recording_mbid`. Supporting all songs will be a stretch goal. These statistics will be calculated once in a week. Different statistics which can be shown are -
 - BPM
 - Dancebility
 - Happiness
 - Accousticness
+
+### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
+The data for Artist Origin, Top Genres and Mood Analysis will be calculated incrementally. That is the data will be calculated for a week and then merged with previous data. Hence we have to store this data in HDFS. A new table with the following schema will have to be created for this.
+|     Column    |         Type         |   Nullable   |
+|:-------------:|:--------------------:|:------------:|
+| user_name     | string               | not nullable |
+| genre         | map(string, integer) | nullable     |
+| artist_origin | map(string, integer) | nullable     |
+| mood          | map(string, integer) | nullable     |
+
 
 ### Redis cache
 To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
@@ -177,8 +187,6 @@ Buffer Period. Work on additional ideas.
 
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
-## AcousticBrainz integration
-
 ## Entity Graphs
 These graphs will show details about various entities like artists, recordings and releases.
 
