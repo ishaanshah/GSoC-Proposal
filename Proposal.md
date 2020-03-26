@@ -75,10 +75,10 @@ The top artist/recording/release section shows the top 10 artist/recording/relea
 Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it. The calculation of the data will be done only when the user visits the stats page<br>
 SQL Query:
 ```sql
-SELECT  FIRST(artist_name)
-      , FIRST(artist_msid)
-      , FIRST(artist_mbid)
-      , COUNT(distict(artist_name)) as cnt
+SELECT  artist_name
+      , artist_msid
+      , artist_mbid
+      , COUNT(artist_name) as cnt
 FROM    {table_name}
 WHERE   user_name={user_name}
 GROUP   BY  artist_name
@@ -107,13 +107,19 @@ def get_listen_activity(week, user_name):
                             AND   timestamp>={utc(hour.start)}
                             AND   timestamp<={utc(hour.end)}
                          """)
-      cnt = result.collect().count()
+      data[hour] += result.collect().count()
   data = [cnt/7 for cnt in data]
 
   return data
 ```
 
+### History
+This section shows a paginated list of all the different entities that a user has listened to in a given time period.<br>
+A bar graph can be used to show this data. The `SQL` query to calculate this is similar to the `Top Artist` graph. The data will be calculated as and when the user requires it.
+
 ### Sitewide Statistics
+The sitewide statistics page shows the top artists/recordings/releases that the users are listening to in a week. These graphs reveal the current trending artists/releases/recordings.<br>
+A stream graph will be used to show which entity was most listened to in the past week. The `SQL` query to calculate the data requird is similar to the `Top Artist` graph.
 
 ### Top Genres
 
@@ -124,11 +130,6 @@ This map is a bit difficult to implement as we have to query the MusicBrainz dat
 As t
 
 ### Mood Analysis
-
-
-The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
-The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated once/twice in a month, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
-![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
 
 ### Redis cache
 To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
