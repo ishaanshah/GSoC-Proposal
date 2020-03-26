@@ -43,9 +43,16 @@ This view shows a paginated list of the artists/recordings/releases that the use
 [UI Prototype](https://www.figma.com/proto/paVt1kzikbX17DjYpsRNQ5/Statistics?scaling=min-zoom&node-id=2%3A0)<br>
 This view shows the top 10 artists/recordings/releases that all ListenBrainz users are listening to. Moreover, the Listen Count shown on the homepage will be replaced by a graph showing the cumulative listens submitted to ListenBrainz over the last month.
 
+**Note:** The mockups for the UI may change as per further discussions.
+
 # Implementation
 ## Front End
-ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. Some of the code used to build graphs for the mock UI can be found [here](https://github.com/ishaanshah/GSoC-Proposal/tree/master/graph_designs/src).
+ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. The reason to choose `nivo` as the charting library is - 
+- Has thorough and indepth documentation
+- Has a lot of customization options
+- Has `typescript` defination files which help in devlopment considering that ListeBrainz is going to use `typescript` for `ReactJS` code in future
+- Supports responsive components which is essential in making the website mobile friendly<br><br>
+The code used to build graphs for the mock UI can be found [here](https://codesandbox.io/s/listenbrainz-graphs-fzkj2).
 
 ## Back End
 Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br>
@@ -174,7 +181,7 @@ Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period
 ## Community Bonding Period
 I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server and the Spark server to start generating statistics.
 ## Week 1-2
-Finalize and implement the UI for displaying user and sitewide statistics (except `Artist Origins`) and write tests.
+Finalize and implement the UI for displaying user and sitewide statistics and write tests.
 ## Week 3
 Start working on the generation of user statistics.
 ## Week 4 (Phase 1 evaluations here)
@@ -182,22 +189,24 @@ Complete user statistics.
 ## Week 5
 Write tests for user statistics generation. Refactor the code written before based upon feedback from mentors in evaluation.
 ## Week 6
-Implement `Redis Cache` and write tests
+Implement `Redis Cache` and write tests.
 ## Week 7
 Implement sitewide statistics.
 ## Week 8 (Phase 2 evaluations here)
-Start writing scripts to get information about the artist's origin from MusicBrainz and geocoding it.
+Work on scripts to get information about the artist's origin and genre tags from MusicBrainz.
 ## Week 9
-Work on UI for `Artist Origin`. Refactor the code written before based upon feedback from mentors in evaluation.
+Work on scripts to get information about the mood information from AcousticBrainz.
 ## Week 10-11
-Write backend code for `Artist Origin`.
+Write backend code `Top Genres`, `Artist Origin` and `Mood Analysis`.
 ## Week 12-13
 Buffer Period. Work on additional ideas.
 
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
+## `Mood Analysis` for listens not having `recording_mbid`
+As mentioned in the proposal the project aims to implement `Mood Analysis` for listens having `recording_mbid` only. Support for all listens can be added later.
 ## Entity Graphs
-These graphs will show details about various entities like artists, recordings and releases.
+These graphs will show details about various entities like artists, recordings and releases. When did a user start listening to that entity.
 
 # About Me
 I am a freshman at IIIT-H (International Institute of Information Technology, Hyderabad). I have been working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of PRs that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
