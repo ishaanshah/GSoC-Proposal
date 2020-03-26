@@ -121,15 +121,22 @@ A bar graph can be used to show this data. The `SQL` query to calculate this is 
 The sitewide statistics page shows the top artists/recordings/releases that the users are listening to in a week. These graphs reveal the current trending artists/releases/recordings.<br>
 A stream graph will be used to show which entity was most listened to in the past week. The `SQL` query to calculate the data requird is similar to the `Top Artist` graph.
 
-### Top Genres
-
 ### Artist Origin
 The `Artist Origin` maps out all the artist's that a user has listened to. It shows how diverse a user's listening habits are.<br>
-This map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin. This data will be calculated weekly/biweekly , depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
+This map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin. This data will be calculated weekly/biweekly, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
 ![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
-As t
+
+### Top Genres
+The `Top Genres` chart shows the top 5 genres that user listened to.<br>
+A pie chart can be used to show this data. The data required to display this chart also has to be obtained from MusicBrainz database. Hence this data will be generated incrementally once per week. The overfall flow of the process is similar to the once shown in `Artist Origin`.
 
 ### Mood Analysis
+AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users' listening habits.<br>
+As the raw data provided by AB is hard relate to, this data will be shown relative to other users. For example, **Dancebility** of a users songs is 20% more than average. Also as AB only supports `mbid` lookups as of now, this project will calculate these statistics only for listens having a valid `recording_mbid`. Supporting all songs will be a stretch goal. These statistics will be calculated once in a week. Different statistics which can be shown are -
+- BPM
+- Dancebility
+- Happiness
+- Accousticness
 
 ### Redis cache
 To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
@@ -171,7 +178,7 @@ Buffer Period. Work on additional ideas.
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
 ## AcousticBrainz integration
-AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users' listening habits and can be used by the recommendation engine.
+
 ## Entity Graphs
 These graphs will show details about various entities like artists, recordings and releases.
 
