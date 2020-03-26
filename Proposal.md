@@ -47,19 +47,24 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. Some of the code used to build graphs for the mock UI can be found [here](https://github.com/ishaanshah/GSoC-Proposal/tree/master/graph_designs/src).
 
 ## Back End
-Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br><br>
+Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br>
 
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
-Generating the data required is fairly easy. We just have have to generate `Dataframes` for a specified range of dates and count the number of rows in each `Dataframe` for a given user. The calculation of the data will be done only when the user visits the stats page<br>
+Generating the data required is fairly easy. The psuedocide for generating for weekly listen activity is given below. The calculation of the data will be done only when the user visits the stats page<br>
 Psuedocode:
 ```python
-def get_listen_activity(days):
+def get_listen_activity(week, user_name):
   message = {}
-  for day in days:
-    df = get_listens(from_date=day.begin, to_date=day.end)
-    df.createOrReplaceTempView("listens")
-    result = run_query("SELECT * FROM listens WHERE use_name={user_name}")
+  df = get_listens(from_date=week.begin, to_date=week.end)
+  df.createOrReplaceTempView("listens")
+  for day in week:
+    result = run_query("""SELECT * 
+                          FROM listens 
+                          WHERE user_name={user_name}
+                          AND   timestamp>={utc(day.start)}
+                          AND   timestamp<={utc(day.end)}
+                       """)
     cnt = result.collect().count()
     message[day] = cnt
   return message
@@ -70,10 +75,10 @@ The top artist/recording/release section shows the top 10 artist/recording/relea
 Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it. The calculation of the data will be done only when the user visits the stats page<br>
 SQL Query:
 ```sql
-SELECT  artist_name
-      , artist_msid
-      , artist_mbid
-      , count(artist_name) as cnt
+SELECT  FIRST(artist_name)
+      , FIRST(artist_msid)
+      , FIRST(artist_mbid)
+      , COUNT(distict(artist_name)) as cnt
 FROM    {table_name}
 WHERE   user_name={user_name}
 GROUP   BY  artist_name
@@ -85,14 +90,41 @@ LIMIT   10
 Similar queries can be made to get Top Recordings/Releases.
 
 ### Daily Activity
+The daily activity graph tells when in the whole day is a user most active. It reveales interesting information about a persons work habits and daily routine.<br>
+Calculating the data for the graph is moderately easy. The psuedocode for calculating this data is given below. As this data doesm't change much, it can be calculated once a week.<br>
+Pseudocode:
+```python
+def get_listen_activity(week, user_name):
+  message = {}
+  df = get_listens(from_date=week.begin, to_date=week.end)
+  df.createOrReplaceTempView("listens")
+  data = [0 for i in range(1, 25)]
+  for day in week:
+    for hour in day:
+      result = run_query("""SELECT * 
+                            FROM listens 
+                            WHERE user_name={user_name}
+                            AND   timestamp>={utc(hour.start)}
+                            AND   timestamp<={utc(hour.end)}
+                         """)
+      cnt = result.collect().count()
+  data = [cnt/7 for cnt in data]
+
+  return data
+```
+
+### Sitewide Statistics
 
 ### Top Genres
 
 ### Artist Origin
+The `Artist Origin` maps out all the artist's that a user has listened to. It shows how diverse a user's listening habits are.<br>
+This map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin. This data will be calculated weekly/biweekly , depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
+![Artist Origin Flow](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Artist%20Origin.png?token=AGAIMSCJLBT3EI2F5VQKFCC6PXDWS "Artist Origin Flow")
+As t
 
 ### Mood Analysis
 
-### Sitewide Statistics
 
 The data for displaying `Daily Activity` is not easy to calculate. This data will be generated weekly and only for active users of the website. As this data will be calculated only once per week, it has to be stored in table.<br><br>
 The `Artist Origin` map is a bit difficult to implement as we have to query the MusicBrainz database to get the artist's origin and then geocode it using Google Maps/OpenStreetMap API. This data will be calculated once/twice in a month, depending upon how fast this process is. A local cache can be created that maps various artists to their origin. This cache will be stored in HDFS for future use. This will make subsequent queries to get a particular artist's origin faster. The overall flow of the above process is shown in the figure -
