@@ -15,7 +15,7 @@ ListenBrainz now has a statistics infrastructure that collects and computes stat
 We can classify the graphs and statistics to be shown in two different categories:
 
 ## User Statistics
-These graphs tell the user about his/her listening history and habits.<br>
+These graphs tell the user about their listening history and habits.<br>
 - **Listening Activity:** The number of listens submitted to ListenBrainz in the last week/month/year
 - **Top Artist:** The top artists that the user has listened to
 - **Top Releases:** The top releases that the user has listened to
@@ -48,10 +48,10 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 # Implementation
 ## Front End
 ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. The reason to choose `nivo` as the charting library is - 
-- Has thorough and indepth documentation
+- Has thorough and in-depth documentation
 - Has a lot of customization options
-- Has `typescript` defination files which help in devlopment considering that ListeBrainz is going to use `typescript` for `ReactJS` code in future
-- Supports responsive components which is essential in making the website mobile friendly<br><br>
+- Has `typescript` definations, which help in devlopment considering that ListeBrainz is going to use `typescript` for `ReactJS` code in future
+- Supports responsive components, which is essential in making the website mobile friendly<br><br>
 The code used to build graphs for the mock UI can be found [here](https://codesandbox.io/s/listenbrainz-graphs-fzkj2).
 
 ## Back End
@@ -59,7 +59,7 @@ Currently, listens are imported into Spark on the 8th and 22nd of every month. H
 
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
-Generating the data required is fairly easy. The psuedocide for generating for weekly listen activity is given below. The calculation of the data will be done only when the user visits the stats page<br>
+Generating the data required is fairly easy. The psuedocode for generating the data for weekly listen activity is given below. The calculation of the data will be done only when the user visits the stats page<br>
 Psuedocode:
 ```python
 def get_listen_activity(week, user_name):
@@ -139,7 +139,7 @@ A pie chart can be used to show this data. The data required to display this cha
 
 ### Mood Analysis
 AcousticBrainz provides a lot of useful information such as **Danceability**, **BPM** and the general **Tone** of a recording. This can be used to provide insightful information about users' listening habits.<br>
-As the raw data provided by AB is hard relate to, this data will be shown relative to other users. For example, **Dancebility** of an user's songs is 20% more than average. As AB only supports `mbid` lookups as of now, this project will calculate these statistics only for listens having a valid `recording_mbid`. Supporting all songs will be a stretch goal. These statistics will be calculated once in a week. Different statistics which can be shown are -
+As the raw data provided by AB is hard relate to, this data will be shown relative to other users. For example, **Dancebility** of an user's songs is 20% more than average. As AB only supports `mbid` lookups for now, this project will calculate these statistics only for listens having a valid `recording_mbid`. Supporting all listens will be a stretch goal. These statistics will be calculated once in a week. Different statistics which can be shown are -
 - BPM
 - Dancebility
 - Happiness
@@ -151,7 +151,7 @@ As this data will be calculated only once per week, it has to be stored in Liste
 |:-------------:|:--------------------:|:------------:|
 | user_name     | string               | not nullable |
 | data          | jsonb                | nullable     |
-| last_updated  | timestamp            | nullable     |
+| last_updated  | timestamp            | not nullable |
 
 
 ### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
@@ -197,7 +197,7 @@ Work on scripts to get information about the artist's origin and genre tags from
 ## Week 9
 Work on scripts to get information about the mood information from AcousticBrainz.
 ## Week 10-11
-Write backend code `Top Genres`, `Artist Origin` and `Mood Analysis`.
+Write backend code for `Top Genres`, `Artist Origin` and `Mood Analysis`.
 ## Week 12-13
 Buffer Period. Work on additional ideas.
 
@@ -206,7 +206,7 @@ I would like to continue working with ListenBrainz after Summer of Code. This pr
 ## `Mood Analysis` for listens not having `recording_mbid`
 As mentioned in the proposal the project aims to implement `Mood Analysis` for listens having `recording_mbid` only. Support for all listens can be added later.
 ## Entity Graphs
-These graphs will show details about various entities like artists, recordings and releases. When did a user start listening to that entity.
+These graphs will show details about various entities like artists, recordings and releases, when did a user start listening to that entity.
 
 # About Me
 I am a freshman at IIIT-H (International Institute of Information Technology, Hyderabad). I have been working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of PRs that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
