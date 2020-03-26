@@ -119,7 +119,7 @@ A bar graph can be used to show this data. The `SQL` query to calculate this is 
 
 ### Sitewide Statistics
 The sitewide statistics page shows the top artists/recordings/releases that the users are listening to in a week. These graphs reveal the current trending artists/releases/recordings.<br>
-A stream graph will be used to show which entity was most listened to in the past week. The `SQL` query to calculate the data requird is similar to the `Top Artist` graph.
+A stream graph will be used to show which entity was most listened to in the past week. The `SQL` query to calculate the data required is similar to the `Top Artist` graph.
 
 ### Artist Origin
 The `Artist Origin` maps out all the artist's that a user has listened to. It shows how diverse a user's listening habits are.<br>
@@ -138,6 +138,15 @@ As the raw data provided by AB is hard relate to, this data will be shown relati
 - Happiness
 - Accousticness
 
+### Storing data for `Daily Activity`, `Sitewide Statistics`
+As this data will be calculated only once per week, it has to be stored in ListenBrainz Server. This can be done by creating a table in `Postgress SQL` with the following schema -
+|     Column    |         Type         |   Nullable   |
+|:-------------:|:--------------------:|:------------:|
+| user_name     | string               | not nullable |
+| data          | jsonb                | nullable     |
+| last_updated  | timestamp            | nullable     |
+
+
 ### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
 The data for Artist Origin, Top Genres and Mood Analysis will be calculated incrementally. That is the data will be calculated for a week and then merged with previous data. Hence we have to store this data in HDFS. A new table with the following schema will have to be created for this.
 |     Column    |         Type         |   Nullable   |
@@ -146,7 +155,7 @@ The data for Artist Origin, Top Genres and Mood Analysis will be calculated incr
 | genre         | map(string, integer) | nullable     |
 | artist_origin | map(string, integer) | nullable     |
 | mood          | map(string, integer) | nullable     |
-
+| last_updated  | long integer         | not nullable |
 
 ### Redis cache
 To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
