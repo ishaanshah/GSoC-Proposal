@@ -12,17 +12,18 @@
 ListenBrainz now has a statistics infrastructure that collects and computes statistics from the listen data that has been stored in the database. Right now, the only information a user gets about their listening trends is a list of recent listens and top artists. This project aims to change this by displaying insightful graphs and statistics that would be more helpful to the user.
 
 # Graphs and Statistics which can be shown
-We can classify the graphs to be shown in two different categories:
+We can classify the graphs and statistics to be shown in two different categories:
 
 ## User Statistics
 These graphs tell the user about his/her listening history and habits.<br>
-- **Listening Activity**: The number of listens submitted to ListenBrainz in the last week/month/year
-- **Top Artist**: The top artists that the user has listened to
-- **Top Releases**: The top releases that the user has listened to
-- **Top Recordings**: The top recordings that the user has listened to
-- **Daily Activity**: This graph shows the user activity during the day
-- **Top Genres**: This graph shows the top 5 genres that user listens to
-- **Artist Origins**: A map showing the locations of artists to which the user listens to
+- **Listening Activity:** The number of listens submitted to ListenBrainz in the last week/month/year
+- **Top Artist:** The top artists that the user has listened to
+- **Top Releases:** The top releases that the user has listened to
+- **Top Recordings:** The top recordings that the user has listened to
+- **Daily Activity:** This graph shows the user activity during the day
+- **Top Genres:** This graph shows the top 5 genres that user listens to
+- **Artist Origins:** A map showing the locations of artists to which the user listens to
+- **Mood Analysis:** Information such as *Danceability*, *BPM* and the general *Tone* of the songs that user listens to
 
 ## Sitewide Statistics
 These graphs tell about the sitewide trending artists, releases, and recordings in the ListenBrainz community. This data can also be used to calculate the popularity of the entities.
@@ -32,7 +33,7 @@ This project will add three new views to serve the statistics that are being gen
 
 ## User statistics
 [UI Prototype](https://www.figma.com/proto/qXJTaGsrjmzBFVztScyINF/Stats?node-id=2%3A3&scaling=min-zoom)<br>
-This view contains all the graphs and statistics that have been described in the User Statistics section. The artist origin map is an interactive map similar to that shown over [here](https://geoffboeing.com/share/projects/leaflet-lastfm-artists/lastfm-artists-map.html).
+This view contains all the graphs and statistics that have been described in the User Statistics section.
 
 ## User listen history
 [UI Prototype](https://www.figma.com/proto/3ugc7cWUAlKqBawNVOnoSU/History?scaling=min-zoom&node-id=1%3A2)<br>
@@ -71,7 +72,7 @@ def get_listen_activity(week, user_name):
 ```
 
 ### Top Artist/Recording/Release
-The top artist/recording/release section shows the top 10 artist/recording/release that a user has listened to in the given period of time. It shows the user's favourite artists/recordings/releases.<br>
+The top artist/recording/release section shows the top 10 artist/recording/release that a user has listened to in the given period of time.
 Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it. The calculation of the data will be done only when the user visits the stats page<br>
 SQL Query:
 ```sql
@@ -91,11 +92,10 @@ Similar queries can be made to get Top Recordings/Releases.
 
 ### Daily Activity
 The daily activity graph tells when in the whole day is a user most active. It reveales interesting information about a persons work habits and daily routine.<br>
-Calculating the data for the graph is moderately easy. The psuedocode for calculating this data is given below. As this data doesm't change much, it can be calculated once a week.<br>
+Calculating the data for the graph is moderately easy. The psuedocode for calculating this data is given below. As this data doesn't change much, it can be calculated once a week.<br>
 Pseudocode:
 ```python
-def get_listen_activity(week, user_name):
-  message = {}
+def get_daily_activity(week, user_name):
   df = get_listens(from_date=week.begin, to_date=week.end)
   df.createOrReplaceTempView("listens")
   data = [0 for i in range(1, 25)]
