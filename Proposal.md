@@ -179,7 +179,7 @@ We can **hash** the request JSON and use it as a key to store the result for the
 # Timeline
 Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
 ## Community Bonding Period
-I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server and the Spark server to start generating statistics.
+I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
 ## Week 1-2
 Finalize and implement the UI for displaying user and sitewide statistics and write tests.
 ## Week 3
