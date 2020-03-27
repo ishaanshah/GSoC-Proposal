@@ -207,6 +207,8 @@ I would like to continue working with ListenBrainz after Summer of Code. This pr
 As mentioned in the proposal the project aims to implement `Mood Analysis` for listens having `recording_mbid` only. Support for all listens can be added later.
 ## Entity Graphs
 These graphs will show details about various entities like artists, recordings and releases, when did a user start listening to that entity.
+## Mainstream Meter
+This measures how mainstream a users' musical choice is. This can be done by taking the popularity of an entity and number of listens for that entity into account.
 
 # About Me
 I am a freshman at IIIT-H (International Institute of Information Technology, Hyderabad). I have been working with ListenBrainz since January and have learned quite a few things along the way. You can find the list of PRs that I have made over [here](https://github.com/metabrainz/listenbrainz-server/pulls?q=author%3Aishaanshah).
