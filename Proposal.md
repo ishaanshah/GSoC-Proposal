@@ -50,7 +50,7 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. The reason to choose `nivo` as the charting library is - 
 - Has thorough and in-depth documentation
 - Has a lot of customization options
-- Has `typescript` definations, which help in devlopment considering that ListenBrainz is going to use `typescript` for `ReactJS` code in future
+- Has `typescript` definitions, which will help in devlopment considering that ListenBrainz is going to use `typescript` for `ReactJS` code in future
 - Supports responsive components, which is essential in making the website mobile friendly<br><br>
 The code used to build graphs for the mock UI can be found [here](https://codesandbox.io/s/listenbrainz-graphs-fzkj2).
 
