@@ -122,7 +122,7 @@ def get_daily_activity(week, user_name):
 
 ### History
 This section shows a paginated list of all the different entities that a user has listened to in a given time period.<br>
-A bar graph can be used to show this data. The `SQL` query to calculate this is similar to the `Top Artist` graph. The data will be calculated as and when the user requires it.
+A bar graph can be used to show this data. The `SQL` query to calculate this is similar to the `Top Artist` graph.
 
 ### Sitewide Statistics
 The sitewide statistics page shows the top artists/recordings/releases that the users are listening to in a week. These graphs reveal the current trending artists/releases/recordings.<br>
