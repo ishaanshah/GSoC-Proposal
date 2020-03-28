@@ -166,9 +166,9 @@ The data for Artist Origin, Top Genres and Mood Analysis will be calculated incr
 # Timeline
 Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
 ## Community Bonding Period
-I will use this time to discuss implementation details with mentors. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
+I will use this time to discuss implementation details with mentors and finalize the Mock UI. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
 ## Week 1-2
-Finalize and implement the UI for displaying user and sitewide statistics and write tests.
+Implement the UI for displaying user and sitewide statistics and write tests.
 ## Week 3
 Start working on the generation of user statistics.
 ## Week 4 (Phase 1 evaluations here)
