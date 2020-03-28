@@ -146,7 +146,7 @@ As the raw data provided by AB is hard relate to, this data will be shown relati
 - Accousticness
 
 ### Storing data in ListenBrainz Server
-As this data will be calculated only once per week, it has to be stored in ListenBrainz Server. This can be done by creating a table in `Postgress SQL` with the following schema -
+As the data required will be calculated in batches, it has to be stored in ListenBrainz Server so that it can be served to the user when required. This can be done by creating a table in `Postgress SQL` with the following schema -
 |     Column    |         Type         |   Nullable   |
 |:-------------:|:--------------------:|:------------:|
 | user_name     | string               | not nullable |
@@ -176,9 +176,9 @@ Complete user statistics.
 ## Week 5
 Write tests for user statistics generation. Refactor the code written before based upon feedback from mentors in evaluation.
 ## Week 6
-Implement `Redis Cache` and write tests.
-## Week 7
 Implement sitewide statistics.
+## Week 7
+Implement user history.
 ## Week 8 (Phase 2 evaluations here)
 Work on scripts to get information about the artist's origin and genre tags from MusicBrainz.
 ## Week 9
@@ -191,7 +191,7 @@ Buffer Period. Work on additional ideas.
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
 ## `Mood Analysis` for listens not having `recording_mbid`
-As mentioned in the proposal the project aims to implement `Mood Analysis` for listens having `recording_mbid` only. Support for all listens can be added later.
+As mentioned in the proposal the project aims to implement `Mood Analysis` for listens having `recording_mbid`. Support for all listens can be added later.
 ## Entity Graphs
 These graphs will show details about various entities like artists, recordings and releases, when did a user start listening to that entity.
 ## Mainstream Meter
