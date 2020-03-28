@@ -50,7 +50,7 @@ This view shows the top 10 artists/recordings/releases that all ListenBrainz use
 ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo` - a React based charting library built using `d3.js` for rendering various visualizations. The reason to choose `nivo` as the charting library is - 
 - Has thorough and in-depth documentation
 - Has a lot of customization options
-- Has `typescript` definations, which help in devlopment considering that ListeBrainz is going to use `typescript` for `ReactJS` code in future
+- Has `typescript` definations, which help in devlopment considering that ListenBrainz is going to use `typescript` for `ReactJS` code in future
 - Supports responsive components, which is essential in making the website mobile friendly<br><br>
 The code used to build graphs for the mock UI can be found [here](https://codesandbox.io/s/listenbrainz-graphs-fzkj2).
 
@@ -59,7 +59,7 @@ Currently, listens are imported into Spark on the 8th and 22nd of every month. H
 
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
-Generating the data required is fairly easy. The psuedocode for generating the data for weekly listen activity is given below. The calculation of the data will be done only when the user visits the stats page<br>
+Generating the data required is fairly easy. The psuedocode for generating the data for weekly listen activity is given below.<br>
 Psuedocode:
 ```python
 def get_listen_activity(week, user_name):
@@ -80,7 +80,7 @@ def get_listen_activity(week, user_name):
 
 ### Top Artist/Recording/Release
 The top artist/recording/release section shows the top 10 artist/recording/release that a user has listened to in the given period of time.
-Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it. The calculation of the data will be done only when the user visits the stats page<br>
+Generating the data required for this is fairly easy. We first have to generate a `Dataframe` for the specified time period, then convert the `Dataframe` to a table and run the following `SQL` query on it.<br>
 SQL Query:
 ```sql
 SELECT  artist_name
@@ -145,14 +145,13 @@ As the raw data provided by AB is hard relate to, this data will be shown relati
 - Happiness
 - Accousticness
 
-### Storing data for `Daily Activity`, `Sitewide Statistics`
+### Storing data in ListenBrainz Server
 As this data will be calculated only once per week, it has to be stored in ListenBrainz Server. This can be done by creating a table in `Postgress SQL` with the following schema -
 |     Column    |         Type         |   Nullable   |
 |:-------------:|:--------------------:|:------------:|
 | user_name     | string               | not nullable |
 | data          | jsonb                | nullable     |
 | last_updated  | timestamp            | not nullable |
-
 
 ### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
 The data for Artist Origin, Top Genres and Mood Analysis will be calculated incrementally. That is the data will be calculated for a week and then merged with previous data. Hence we have to store this data in HDFS. A new table with the following schema will have to be created for this.
@@ -163,18 +162,6 @@ The data for Artist Origin, Top Genres and Mood Analysis will be calculated incr
 | artist_origin | map(string, integer) | nullable     |
 | mood          | map(string, integer) | nullable     |
 | last_updated  | long integer         | not nullable |
-
-### Redis cache
-To improve the page loading time, we have to cache the results that we get from Spark in local memory. This can be done using Redis. An example request for getting data for `Listen Activity` will be,
-```javascript
-"stats.user.listen_activity": {
-  "name": "stats.user.listen_activity",
-  "description": "Listening activity of user",
-  "params": ["musicbrainz_id", "from", "to"]
-}
-```
-We can **hash** the request JSON and use it as a key to store the result for the query and quickly retrieve it later if the same query is made. An entry stored in the cache will have a limited lifetime, after which it will be removed. This will ensure that the data gets updated after a suitable interval. The flow for the process is shown in the figure.
-![Query Caching](https://raw.githubusercontent.com/ishaanshah/GSoC-Proposal/master/Flow_Diagrams/Request%20Stats.png?token=AGAIMSEJIVCJNS25D2VPQRC6PXHVU "Query Caching")
 
 # Timeline
 Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
