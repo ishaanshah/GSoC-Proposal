@@ -157,6 +157,13 @@ The data for Artist Origin, Top Genres and Mood Analysis will be calculated incr
 | last_updated  | long integer         | not nullable |
 
 # Timeline
+## Phase 1
+I would implement the basic and easy to implement graphs in this period. The graphs that would be completed in this phase would be `Listen History`, `Daily Activity`, `Top Entity` and `User History`.
+## Phase 2
+I would complete the `Sitewide Statistics`. I will also work on integrating MB and LB and work on the `Artist Origin` map.
+## Phase 3
+I would complete the `Top Genres` graph. I will also work on integrating AB and LB and work on `Mood Analysis`. If time permits I will work on the additional ideas mentioned above.
+
 Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
 ## Community Bonding Period
 I will use this time to discuss implementation details with mentors and finalize the Mock UI. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
@@ -171,7 +178,7 @@ Buffer Period. Catch up on things if behind. If not continue working. Improve th
 ## Week 6
 Implement sitewide statistics.
 ## Week 7
-Work on integrating LB and MB.
+Work on integrating LB and MB. This will involve writing an API library to communicate with MB database or setting up the MB database on Playground itself.
 ## Week 8 (Phase 2 evaluations here)
 Implement Artist Origin map.
 ## Week 9
@@ -179,7 +186,7 @@ Buffer Period. Catch up on things if behind. If not continue working. Improve th
 ## Week 10
 Implement Top Genres graph.
 ## Week 11
-Work on integrating AB and MB.
+Work on integrating AB and LB.  This will involve writing an API library to communicate with AB database.
 ## Week 12
 Implement Mood Analysis.
 ## Week 13 (Phase 2 evaluations here)
