@@ -55,8 +55,6 @@ ListenBrainz uses ReactJS for implementing UI components. I intend to use `nivo`
 The code used to build graphs for the mock UI can be found [here](https://codesandbox.io/s/listenbrainz-graphs-fzkj2).
 
 ## Back End
-Currently, listens are imported into Spark on the 8th and 22nd of every month. However, for the dynamic generation of graphs and statistics, the frequency of imports has to be increased. The listens should be imported every day at midnight, which means incremental data dumps have to be made every day.<br>
-
 ### Listen Activity
 The listen activity shows the number of listens that a user has submitted over a period of time. It is a good measure of how active a user is and on which days is he most active.<br>
 Generating the data required is fairly easy. The psuedocode for generating the data for weekly listen activity is given below.<br>
