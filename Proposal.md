@@ -144,12 +144,7 @@ As the raw data provided by AB is hard relate to, this data will be shown relati
 - Accousticness
 
 ### Storing data in ListenBrainz Server
-As the data required will be calculated in batches, it has to be stored in ListenBrainz Server so that it can be served to the user when required. This can be done by creating a table in `Postgress SQL` with the following schema -
-|     Column    |         Type         |   Nullable   |
-|:-------------:|:--------------------:|:------------:|
-| user_name     | string               | not nullable |
-| data          | jsonb                | nullable     |
-| last_updated  | timestamp            | not nullable |
+As the data required will be calculated in batches, it has to be stored in ListenBrainz Server so that it can be served to the user when required.
 
 ### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
 The data for Artist Origin, Top Genres and Mood Analysis will be calculated incrementally. That is the data will be calculated for a week and then merged with previous data. Hence we have to store this data in HDFS. A new table with the following schema will have to be created for this.
@@ -166,25 +161,29 @@ Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period
 ## Community Bonding Period
 I will use this time to discuss implementation details with mentors and finalize the Mock UI. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
 ## Week 1-2
-Implement the UI for displaying user and sitewide statistics and write tests.
+Implement the frontend and backend for Listen History and Daily Activity.
 ## Week 3
-Start working on the generation of user statistics.
+Implement the frontend and backend for Top Artists/Recordings/Releases.
 ## Week 4 (Phase 1 evaluations here)
-Complete user statistics.
+Implement the user history page.
 ## Week 5
-Write tests for user statistics generation. Refactor the code written before based upon feedback from mentors in evaluation.
+Buffer Period. Catch up on things if behind. If not continue working. Improve the code written before based upon feedback from mentors in evaluation.
 ## Week 6
 Implement sitewide statistics.
 ## Week 7
-Implement user history.
+Work on integrating LB and MB.
 ## Week 8 (Phase 2 evaluations here)
-Work on scripts to get information about the artist's origin and genre tags from MusicBrainz.
+Implement Artist Origin map.
 ## Week 9
-Work on scripts to get information about the mood information from AcousticBrainz.
-## Week 10-11
-Write backend code for `Top Genres`, `Artist Origin` and `Mood Analysis`.
-## Week 12-13
-Buffer Period. Work on additional ideas.
+Buffer Period. Catch up on things if behind. If not continue working. Improve the code written before based upon feedback from mentors in evaluation.
+## Week 10
+Implement Top Genres graph.
+## Week 11
+Work on integrating AB and MB.
+## Week 12
+Implement Mood Analysis.
+## Week 13 (Phase 2 evaluations here)
+Buffer Period. Catch up on things if behind. If not work on additional ideas. Improve the code written before based upon feedback from mentors in evaluation.
 
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
