@@ -144,7 +144,7 @@ As the raw data provided by AB is hard relate to, this data will be shown relati
 - Accousticness
 
 ### Storing data in ListenBrainz Server
-As the data required will be calculated in batches, it has to be stored in ListenBrainz Server so that it can be served to the user when required.
+As the data required will be calculated in batches, it has to be stored in ListenBrainz Server so that it can be served to the user when required. ListenBrainz already has a table which stores this data. Additional columns will be added to the Schema for the new data that will be generated.
 
 ### Storing data for `Top Genres`, `Artist Origin` and `Mood Analysis`
 The data for Artist Origin, Top Genres and Mood Analysis will be calculated incrementally. That is the data will be calculated for a week and then merged with previous data. Hence we have to store this data in HDFS. A new table with the following schema will have to be created for this.
