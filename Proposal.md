@@ -157,6 +157,8 @@ The data for Artist Origin, Top Genres and Mood Analysis will be calculated incr
 | last_updated  | long integer         | not nullable |
 
 # Timeline
+## Community Bonding Period
+I will use this time to discuss implementation details with mentors and finalize the Mock UI. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
 ## Phase 1
 I would implement the basic and easy to implement graphs in this period. The graphs that would be completed in this phase would be `Listen History`, `Daily Activity`, `Top Entity` and `User History`.
 ## Phase 2
@@ -165,32 +167,30 @@ I would complete the `Sitewide Statistics`. I will also work on integrating MB a
 I would complete the `Top Genres` graph. I will also work on integrating AB and LB and work on `Mood Analysis`. If time permits I will work on the additional ideas mentioned above.
 
 Here is a more detailed week-by-week timeline of the 13 weeks GSoC coding period to keep me on track
-## Community Bonding Period
-I will use this time to discuss implementation details with mentors and finalize the Mock UI. I will start configuring the ListenBrainz server to use `Typescript` and the Spark server to start generating statistics.
-## Week 1-2
+### Week 1-2
 Implement the frontend and backend for Listen History and Daily Activity.
-## Week 3
+### Week 3
 Implement the frontend and backend for Top Artists/Recordings/Releases.
-## Week 4 (Phase 1 evaluations here)
+### Week 4 (Phase 1 evaluations here)
 Implement the user history page.
-## Week 5
+### Week 5
 Buffer Period. Catch up on things if behind. If not continue working. Improve the code written before based upon feedback from mentors in evaluation.
-## Week 6
+### Week 6
 Implement sitewide statistics.
-## Week 7
+### Week 7
 Work on integrating LB and MB. This will involve writing an API library to communicate with MB database or setting up the MB database on Playground itself.
-## Week 8 (Phase 2 evaluations here)
+### Week 8 (Phase 2 evaluations here)
 Implement Artist Origin map.
-## Week 9
+### Week 9
 Buffer Period. Catch up on things if behind. If not continue working. Improve the code written before based upon feedback from mentors in evaluation.
-## Week 10
+### Week 10
 Implement Top Genres graph.
-## Week 11
+### Week 11
 Work on integrating AB and LB.  This will involve writing an API library to communicate with AB database.
-## Week 12
+### Week 12
 Implement Mood Analysis.
-## Week 13 (Phase 2 evaluations here)
-Buffer Period. Catch up on things if behind. If not work on additional ideas. Improve the code written before based upon feedback from mentors in evaluation.
+### Week 13 (Phase 3 evaluations here)
+Buffer Period. Catch up on things if behind. If not work on additional ideas.
 
 # Post GSoC / Additional Ideas
 I would like to continue working with ListenBrainz after Summer of Code. This project aims at setting up basic architecture for generating statistics with Apache Spark. The addition of more statistics will be relatively easy.
